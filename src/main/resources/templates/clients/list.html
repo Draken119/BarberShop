@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Clientes</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <div th:if="${success}" class="alert" th:text="${success}"></div>
+    <h3>Clientes</h3>
+    <form method="get"><input type="text" name="q" th:value="${q}" placeholder="Buscar por nome ou email"></form>
+    <p><a class="btn" th:href="@{/clients/new}">Novo cliente</a></p>
+    <table><tr><th>Nome</th><th>Email</th><th>Telefone</th><th></th></tr>
+        <tr th:each="c : ${clients}">
+            <td th:text="${c.fullName}"></td><td th:text="${c.email}"></td><td th:text="${c.phone}"></td>
+            <td><a th:href="@{'/clients/' + ${c.id}}">Detalhes</a> | <a th:href="@{'/clients/' + ${c.id} + '/edit'}">Editar</a></td>
+        </tr>
+    </table>
+</div>
+</body></html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Agendamento</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <h3 th:text="${appointment.id == null ? 'Novo Agendamento' : 'Editar Agendamento'}"></h3>
+    <div class="error" th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+    <form th:action="@{/appointments}" th:object="${appointment}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>Cliente</label><select th:field="*{clientId}"><option th:each="c : ${clients}" th:value="${c.id}" th:text="${c.fullName}"></option></select>
+        <label>Data/hora</label><input type="datetime-local" th:field="*{appointmentDateTime}"><div class="error" th:errors="*{appointmentDateTime}"></div>
+        <label>Serviço</label><input th:field="*{service}"><div class="error" th:errors="*{service}"></div>
+        <label>Status</label><select th:field="*{status}"><option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option></select>
+        <button type="submit">Salvar</button>
+    </form>
+</div></body></html>
