@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ 'Novo Cliente' if not client.id else 'Editar Cliente' }}</h3>
+<form method="post">
+  <label>Nome completo</label><input name="full_name" value="{{ client.full_name or '' }}" required>
+  <label>Email</label><input name="email" type="email" value="{{ client.email or '' }}" required>
+  <label>Telefone</label><input name="phone" value="{{ client.phone or '' }}" required>
+  <label>Idade</label><input name="age" type="number" value="{{ client.age or '' }}">
+  <label>Observações</label><textarea name="notes">{{ client.notes or '' }}</textarea>
+  <button type="submit">Salvar</button>
+</form>
+{% endblock %}
