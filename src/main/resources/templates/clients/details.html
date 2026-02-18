@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Detalhes Cliente</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <div th:if="${success}" class="alert" th:text="${success}"></div>
+    <h3 th:text="${client.fullName}"></h3>
+    <p><strong>Email:</strong> <span th:text="${client.email}"></span> | <strong>Telefone:</strong> <span th:text="${client.phone}"></span></p>
+    <p><strong>Estimativa de retorno:</strong> <span th:text="${estimate.minDays + ' a ' + estimate.maxDays + ' dias'}"></span> (<span th:text="${estimate.reasoning}"></span>)</p>
+
+    <h4>Assinatura</h4>
+    <div th:if="${activeSubscription != null}">
+        <p>Plano ativo: <strong th:text="${activeSubscription.plan.name}"></strong> desde <span th:text="${activeSubscription.startDate}"></span></p>
+        <form th:action="@{'/clients/' + ${client.id} + '/subscription/cancel'}" method="post"><button type="submit">Cancelar assinatura</button></form>
+    </div>
+    <form th:action="@{'/clients/' + ${client.id} + '/subscription'}" method="post">
+        <label>Ativar/Trocar plano</label>
+        <select name="planId"><option th:each="p : ${plans}" th:value="${p.id}" th:text="${p.name}"></option></select>
+        <button type="submit">Salvar plano</button>
+    </form>
+
+    <h4>Histórico de atendimentos</h4>
+    <table><tr><th>Data</th><th>Serviço</th><th>Status</th></tr>
+        <tr th:each="a : ${appointments}"><td th:text="${a.appointmentDateTime}"></td><td th:text="${a.service}"></td><td th:text="${a.status}"></td></tr>
+    </table>
+</div>
+</body></html>

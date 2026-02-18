@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Planos</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <div th:if="${success}" class="alert" th:text="${success}"></div>
+    <h3>Planos</h3>
+    <p><a class="btn" th:href="@{/plans/new}">Novo plano</a></p>
+    <table><tr><th>Nome</th><th>Preço</th><th>Regra</th><th>Min dias</th><th>Limite semanal</th><th></th></tr>
+        <tr th:each="p : ${plans}">
+            <td th:text="${p.name}"></td><td th:text="${p.price}"></td><td th:text="${p.dayRule}"></td><td th:text="${p.minDaysBetweenAppointments}"></td><td th:text="${p.weeklyLimit}"></td>
+            <td><a th:href="@{'/plans/' + ${p.id} + '/edit'}">Editar</a></td>
+        </tr>
+    </table>
+</div></body></html>

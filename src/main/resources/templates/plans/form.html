@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Plano</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <h3 th:text="${plan.id == null ? 'Novo Plano' : 'Editar Plano'}"></h3>
+    <form th:action="@{/plans}" th:object="${plan}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>Nome</label><input th:field="*{name}"><div class="error" th:errors="*{name}"></div>
+        <label>Preço</label><input type="number" step="0.01" th:field="*{price}"><div class="error" th:errors="*{price}"></div>
+        <label>Regra de dias</label><select th:field="*{dayRule}"><option th:each="r : ${rules}" th:value="${r}" th:text="${r}"></option></select>
+        <label>Mín. dias entre cortes</label><input type="number" th:field="*{minDaysBetweenAppointments}">
+        <label>Limite semanal</label><input type="number" th:field="*{weeklyLimit}">
+        <label><input type="checkbox" th:field="*{active}"> Ativo</label>
+        <button type="submit">Salvar</button>
+    </form>
+</div></body></html>

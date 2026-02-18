@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Configurações</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <div th:if="${success}" class="alert" th:text="${success}"></div>
+    <h3>Configurações Básicas</h3>
+    <form method="post">
+        <label>Modo de e-mail</label>
+        <select name="emailMode"><option th:each="m : ${emailModes}" th:value="${m}" th:selected="${m.name()==emailMode}" th:text="${m}"></option></select>
+        <label>From e-mail</label><input name="emailFrom" th:value="${emailFrom}">
+        <label>Estimator targetCm</label><input name="targetCm" type="number" step="0.01" th:value="${targetCm}">
+        <label>Estimator taxa base (cm/dia)</label><input name="baseRate" type="number" step="0.001" th:value="${baseRate}">
+        <button type="submit">Salvar</button>
+    </form>
+</div></body></html>
