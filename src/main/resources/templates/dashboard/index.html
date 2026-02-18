@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Dashboard</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <h3>Dashboard</h3>
+    <div class="grid">
+        <div class="card"><strong>Total clientes:</strong> <span th:text="${dashboard.totalClients}"></span></div>
+        <div class="card"><strong>Agendamentos hoje:</strong> <span th:text="${dashboard.todayAppointments}"></span></div>
+        <div class="card"><strong>Próximos 7 dias:</strong> <span th:text="${dashboard.next7DaysAppointments}"></span></div>
+        <div class="card"><strong>Sem plano ativo:</strong> <span th:text="${dashboard.clientsWithoutPlan}"></span></div>
+        <div class="card"><strong>Planos inativos:</strong> <span th:text="${dashboard.inactivePlans}"></span></div>
+    </div>
+    <p><a class="btn" th:href="@{/appointments/new}">Novo agendamento</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Agenda</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments :: header}"></div>
+<div class="container">
+    <div th:if="${success}" class="alert" th:text="${success}"></div>
+    <h3>Agenda</h3>
+    <p><a class="btn" th:href="@{/appointments/new}">Novo agendamento</a></p>
+    <p><a th:href="@{/export/appointments.csv(start=${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}, end=${#temporals.format(#temporals.createNow().plusDays(30), 'yyyy-MM-dd')})}">Exportar próximos 30 dias (CSV)</a></p>
+    <table><tr><th>Cliente</th><th>Data/hora</th><th>Serviço</th><th>Status</th><th></th></tr>
+        <tr th:each="a : ${appointments}"><td th:text="${a.client.fullName}"></td><td th:text="${a.appointmentDateTime}"></td><td th:text="${a.service}"></td><td th:text="${a.status}"></td>
+            <td><a th:href="@{'/appointments/' + ${a.id} + '/edit'}">Editar</a></td></tr>
+    </table>
+</div></body></html>

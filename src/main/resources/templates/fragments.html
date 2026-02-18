@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <h2>Painel da Barbearia</h2>
+    <nav>
+        <a th:href="@{/}">Dashboard</a>
+        <a th:href="@{/clients}">Clientes</a>
+        <a th:href="@{/plans}">Planos</a>
+        <a th:href="@{/appointments}">Agenda</a>
+        <a th:href="@{/settings}">Configurações</a>
+        <a th:href="@{/export/clients.csv}">CSV Clientes</a>
+    </nav>
+</header>
+</body>
+</html>

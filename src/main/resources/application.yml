@@ -1,0 +1,35 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/barbershopdb;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  thymeleaf:
+    cache: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# Para PostgreSQL futuramente (exemplo):
+# spring:
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/barbershop
+#     username: postgres
+#     password: postgres
+#     driver-class-name: org.postgresql.Driver
+#   jpa:
+#     hibernate:
+#       ddl-auto: update
+
+app:
+  mail:
+    smtp-host: localhost
+    smtp-port: 1025
