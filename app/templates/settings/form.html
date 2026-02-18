@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Configurações</h3>
+<form method="post">
+  <label>Modo de email</label>
+  <select name="email_mode">
+    <option value="TEST" {% if data.email_mode=='TEST' %}selected{% endif %}>TEST</option>
+    <option value="SMTP" {% if data.email_mode=='SMTP' %}selected{% endif %}>SMTP</option>
+  </select>
+  <label>Email from</label><input name="email_from" value="{{ data.email_from }}">
+  <label>Estimator targetCm</label><input name="target_cm" type="number" step="0.01" value="{{ data.target_cm }}">
+  <label>Estimator baseRate</label><input name="base_rate" type="number" step="0.001" value="{{ data.base_rate }}">
+  <button>Salvar</button>
+</form>
+{% endblock %}

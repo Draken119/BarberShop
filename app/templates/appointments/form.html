@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ 'Novo Agendamento' if not appointment.id else 'Editar Agendamento' }}</h3>
+<form method="post">
+  <label>Cliente</label>
+  <select name="client_id">{% for c in clients %}<option value="{{ c.id }}" {% if appointment.client_id==c.id %}selected{% endif %}>{{ c.full_name }}</option>{% endfor %}</select>
+  <label>Data/hora</label>
+  <input type="datetime-local" name="appointment_date_time" value="{{ appointment.appointment_date_time[:16] if appointment.appointment_date_time else '' }}" required>
+  <label>Serviço</label><input name="service" value="{{ appointment.service or '' }}" required>
+  <label>Status</label>
+  <select name="status">
+    {% for s in ['SCHEDULED','DONE','CANCELED','NO_SHOW'] %}<option value="{{ s }}" {% if appointment.status==s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+  </select>
+  <button>Salvar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Dashboard</h3>
+<div class="grid">
+  <div class="card"><b>Total clientes:</b> {{ total_clients }}</div>
+  <div class="card"><b>Agendamentos hoje:</b> {{ today_count }}</div>
+  <div class="card"><b>Próximos 7 dias:</b> {{ next7 }}</div>
+  <div class="card"><b>Sem plano ativo:</b> {{ without_plan }}</div>
+  <div class="card"><b>Planos inativos:</b> {{ inactive_plans }}</div>
+</div>
+<h4>Alertas</h4>
+<ul>
+  <li>Clientes sem plano ativo: <b>{{ without_plan }}</b></li>
+  <li>Planos inativos: <b>{{ inactive_plans }}</b></li>
+</ul>
+{% endblock %}

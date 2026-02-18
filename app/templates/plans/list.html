@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Planos</h3>
+<p><a class="btn" href="{{ url_for('plans_form') }}">Novo plano</a></p>
+<table><tr><th>Nome</th><th>Preço</th><th>Regra</th><th>Min dias</th><th>Limite semanal</th><th>Ativo</th><th>Ações</th></tr>
+{% for p in plans %}
+<tr>
+  <td>{{ p.name }}</td><td>{{ p.price }}</td><td>{{ p.day_rule.value }}</td><td>{{ p.min_days_between_appointments }}</td><td>{{ p.weekly_limit }}</td><td>{{ 'Sim' if p.active else 'Não' }}</td>
+  <td>
+    <a href="{{ url_for('plans_form', plan_id=p.id) }}">Editar</a>
+    <form style="display:inline" method="post" action="{{ url_for('plans_delete', plan_id=p.id) }}" onsubmit="return confirm('Remover plano?')">
+      <button type="submit">Excluir</button>
+    </form>
+  </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
