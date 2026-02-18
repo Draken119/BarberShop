@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Clientes</h3>
+<form method="get"><input name="q" value="{{ q }}" placeholder="Buscar por nome ou email"></form>
+<p><a class="btn" href="{{ url_for('clients_form') }}">Novo cliente</a> <a class="btn" href="{{ url_for('export_clients') }}">Exportar CSV</a></p>
+<table><tr><th>Nome</th><th>Email</th><th>Telefone</th><th>Ações</th></tr>
+{% for c in clients %}
+<tr>
+  <td>{{ c.full_name }}</td><td>{{ c.email }}</td><td>{{ c.phone }}</td>
+  <td>
+    <a href="{{ url_for('clients_details', client_id=c.id) }}">Detalhes</a> |
+    <a href="{{ url_for('clients_form', client_id=c.id) }}">Editar</a>
+    <form style="display:inline" method="post" action="{{ url_for('clients_delete', client_id=c.id) }}" onsubmit="return confirm('Remover cliente?')">
+      <button type="submit">Excluir</button>
+    </form>
+  </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

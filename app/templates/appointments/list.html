@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Agenda</h3>
+<p><a class="btn" href="{{ url_for('appointments_form') }}">Novo agendamento</a></p>
+<p><a href="{{ url_for('export_appointments') }}?start={{ now.strftime('%Y-%m-%d') }}&end={{ (now + timedelta(days=30)).strftime('%Y-%m-%d') }}">Exportar 30 dias (CSV)</a></p>
+<table><tr><th>Cliente</th><th>Data/Hora</th><th>Serviço</th><th>Status</th><th>Ações</th></tr>
+{% for a in appointments %}
+<tr>
+  <td>{{ a.client.full_name }}</td><td>{{ a.appointment_date_time }}</td><td>{{ a.service }}</td><td>{{ a.status.value }}</td>
+  <td>
+    <a href="{{ url_for('appointments_form', appointment_id=a.id) }}">Editar</a>
+    <form style="display:inline" method="post" action="{{ url_for('appointments_delete', appointment_id=a.id) }}" onsubmit="return confirm('Remover agendamento?')">
+      <button type="submit">Excluir</button>
+    </form>
+  </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

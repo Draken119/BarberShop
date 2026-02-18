@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ client.full_name }}</h3>
+<p><b>Email:</b> {{ client.email }} | <b>Telefone:</b> {{ client.phone }}</p>
+<p><b>Estimativa de retorno:</b> {{ estimate.min_days }} a {{ estimate.max_days }} dias ({{ estimate.reasoning }})</p>
+
+<h4>Assinatura</h4>
+{% if active_sub %}
+<p>Plano ativo: <b>{{ active_sub.plan.name }}</b> desde {{ active_sub.start_date }}</p>
+<form method="post" action="{{ url_for('subscription_cancel', client_id=client.id) }}"><button>Cancelar assinatura</button></form>
+{% else %}
+<p>Sem plano ativo.</p>
+{% endif %}
+<form method="post" action="{{ url_for('subscription_activate', client_id=client.id) }}">
+  <select name="plan_id">{% for p in plans %}<option value="{{ p.id }}">{{ p.name }}</option>{% endfor %}</select>
+  <button>Ativar/Trocar plano</button>
+</form>
+
+<h4>Histórico</h4>
+<table><tr><th>Data</th><th>Serviço</th><th>Status</th></tr>
+{% for a in appointments %}
+<tr><td>{{ a.appointment_date_time }}</td><td>{{ a.service }}</td><td>{{ a.status.value }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}
